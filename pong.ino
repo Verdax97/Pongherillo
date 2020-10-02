@@ -18,6 +18,7 @@
 */
 
 // Pin 2-8 is connected to the 7 segments of the display.
+// pin 9 is for buzzer
 
 #define pinA  2
 #define pinB  3
@@ -26,10 +27,11 @@
 #define pinE  6
 #define pinF  7
 #define pinG  8
-#define D1  9
-#define D2  10
-#define D3  11
-#define D4  12
+#define BUZZER_PIN 9
+#define D1  10
+#define D2  11
+#define D3  12
+#define D4  13
 
 // Define the PINS you're goint to use on your Arduino Nano
 int controller1 = 0;               // ANALOG 0
@@ -77,6 +79,7 @@ void setup() {
   pinMode(pinE, OUTPUT);
   pinMode(pinF, OUTPUT);
   pinMode(pinG, OUTPUT);
+  pinMode(BUZZER_PIN, OUTPUT);
   pinMode(D1, OUTPUT);
   pinMode(D2, OUTPUT);
   pinMode(D3, OUTPUT);
@@ -132,6 +135,41 @@ void loop()
     display.display();
     display.clearDisplay();
     ballSpeedX = 1;
+    // play menu theme (totally uncopyrighted)
+    tone(BUZZER_PIN, 510 ,100);  
+    delay ( 450);  
+    tone(BUZZER_PIN, 380 ,100);  
+    delay ( 400);  
+    tone(BUZZER_PIN, 320 ,100);  
+    delay ( 500);  
+    tone(BUZZER_PIN, 440 ,100);  
+    delay ( 300);  
+    tone(BUZZER_PIN, 480 ,80);  
+    delay ( 330);  
+    tone(BUZZER_PIN, 450 ,100);  
+    delay ( 150);  
+    tone(BUZZER_PIN, 430 ,100);  
+    delay ( 300);  
+    tone(BUZZER_PIN, 380 ,100);  
+    delay ( 200);  
+    tone(BUZZER_PIN, 660 ,80);  
+    delay ( 200);  
+    tone(BUZZER_PIN, 760 ,50);  
+    delay ( 150);  
+    tone(BUZZER_PIN, 860 ,100);  
+    delay ( 300);  
+    tone(BUZZER_PIN, 700 ,80);  
+    delay ( 150);  
+    tone(BUZZER_PIN, 760 ,50);  
+    delay ( 350);  
+    tone(BUZZER_PIN, 660 ,80);  
+    delay ( 300);  
+    tone(BUZZER_PIN, 520 ,80);  
+    delay ( 150);  
+    tone(BUZZER_PIN, 580 ,80);  
+    delay ( 150);  
+    tone(BUZZER_PIN, 480 ,80);  
+    delay ( 500);
   }
 
   if (gameState == 1) {
@@ -393,6 +431,8 @@ void collisionControl() {
 
   //bounce from player1
   if (((ballX >= 128 - 2 - 2 && ballX <= 128 - 2) || (ballX + ballSpeedX <= 2)) && ballSpeedX < 0) {
+    // play player1 tone
+    tone(BUZZER_PIN, 510 ,100);
     if (ballY > round(paddlePositionPlayer1) - 2 && ballY < round(paddlePositionPlayer1) + 18)
     {
       if (abs(ballSpeedX) == 8)
@@ -422,6 +462,8 @@ void collisionControl() {
   //bounce from player2
   if (((ballX >= 128 - 2 - 2 && ballX <= 128 - 2) || (ballX + ballSpeedX >= 126)) && ballSpeedX > 0)
   {
+    // play player2 tone
+    tone(BUZZER_PIN, 380 ,100);
     if (ballY > round(paddlePositionPlayer2) - 2 && ballY < round(paddlePositionPlayer2) + 18)
     {
       if (abs(ballSpeedX) == 8)
